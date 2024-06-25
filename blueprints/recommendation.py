@@ -29,7 +29,9 @@ def generate_products_dataframe():
     # Prepare the data
     data = []
     for product in products:
-        nutrition_types = ", ".join([nt.name for nt in product.nutrition_types])
+        nutrition_types = [
+            {"id": nt.id, "name": nt.name} for nt in product.nutrition_types
+        ]
         data.append(
             {
                 "id": product.id,
