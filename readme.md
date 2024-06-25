@@ -45,11 +45,19 @@ Once the virtual environment is activated, install the required dependencies usi
 pip install -r requirements.txt
 ```
 
-### 5. Download the model
+### 5. Run the Setup script
+
+Once all the required library installed, you need to run the setup.py to downlaod NLTK punkt
+
+```console
+python setup.py
+```
+
+### 6. Download the model
 
 You need to download the model by [click here](https://drive.google.com/file/d/1H8p0D6PslbC2-KWOgZTgFWIPRwBoGNp8/view?usp=sharing) and put it on the same directory with `app.py` .
 
-### 6. Run the Flask Application
+### 7. Run the Flask Application
 
 You are now ready to run your Flask application. Make sure you are in the root directory of your project where `app.py` (or your main Flask application file) is located, and then run:
 
