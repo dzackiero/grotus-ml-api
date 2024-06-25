@@ -1,11 +1,13 @@
 from flask import Blueprint, request, jsonify
 from tensorflow.keras.utils import load_img, img_to_array
 from tensorflow.keras.models import load_model
+import tensorflow as tf
 import numpy as np
 import io
 
-model = load_model('model/model.keras')
+model = load_model("model/model.keras")
 bp = Blueprint("detection", __name__)
+
 
 def prepare_image(img, target_size):
     img = load_img(img, target_size=target_size)
@@ -15,21 +17,23 @@ def prepare_image(img, target_size):
     return img
 
 
-@bp.route('/predict', methods=['POST'])
+@bp.route("/predict", methods=["POST"])
 def predict():
-    if 'file' not in request.files:
+    if "file" not in request.files:
         return jsonify({"error": "No file part"}), 400
 
-    file = request.files['file']
+    file = request.files["file"]
 
-    if file.filename == '':
+    if file.filename == "":
         return jsonify({"error": "No selected file"}), 400
 
     if file:
         try:
             # Prepare the image for the model
             img = io.BytesIO(file.read())
-            processed_image = prepare_image(img, target_size=(224, 224))  # Change target_size based on your model
+            processed_image = prepare_image(
+                img, target_size=(224, 224)
+            )  # Change target_size based on your model
 
             # Make a prediction
             predictions = model.predict(processed_image)
@@ -49,7 +53,9 @@ def predict():
                 response["prediction"] = "Lack of Red Phosphor"
                 response["keyword"] = "Phosphorus"
             else:
-                response["prediction"] = "Couldn't Detect Lack of Nutrition from the image"
+                response["prediction"] = (
+                    "Couldn't Detect Lack of Nutrition from the image"
+                )
                 response["keyword"] = None
 
             response["predictions"] = predictions.tolist()
