@@ -8,11 +8,13 @@ from utils.sys_recomendation import SysRecommendation
 bp = Blueprint("recommendation", __name__)
 
 
-@bp.route("/recommend")
-def recommend():
+@bp.route("/recommend/<int:productId>")
+def recommend(productId):
     recSys = SysRecommendation(generate_products_dataframe(), "metadata")
     recSys.fit()
-    df_rec = recSys.predict(1, 200)
+
+    limit = request.args.get("limit", default=10, type=int)
+    df_rec = recSys.predict(productId, limit)
     return jsonify(df_rec.to_dict(orient="records"))
 
 
