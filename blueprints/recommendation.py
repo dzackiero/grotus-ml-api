@@ -38,10 +38,14 @@ def generate_products_dataframe():
             {
                 "id": product.id,
                 "name": product.name,
-                "nutrition_types": nutrition_types,
-                "type": product.type.name,
+                "price": product.price,
+                "stock": product.stock,
                 "description": product.description,
+                "type": product.type.name,
                 "metadata": product.meta_data,
+                "nutrition_types": nutrition_types,
+                "created_at": product.created_at,
+                "updated_at": product.updated_at,
             }
         )
 

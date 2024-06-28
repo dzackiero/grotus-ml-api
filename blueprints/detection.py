@@ -45,7 +45,7 @@ def predict():
                 response["keyword"] = None
             elif predictions[0][1] > 0.7:
                 response["prediction"] = "Lack of Potassium"
-                response["keyword"] = "Pottasium"
+                response["keyword"] = "Potasium"
             elif predictions[0][2] > 0.7:
                 response["prediction"] = "Lack of Nitrogen"
                 response["keyword"] = "Nitrogen"
