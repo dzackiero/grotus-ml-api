@@ -34,6 +34,11 @@ def generate_products_dataframe():
         nutrition_types = [
             {"id": nt.id, "name": nt.name} for nt in product.nutrition_types
         ]
+        first_media = (
+            "https://grotus.dzakynashshar.com/" + product.medias[0].path
+            if product.medias
+            else None
+        )
         data.append(
             {
                 "id": product.id,
@@ -44,6 +49,7 @@ def generate_products_dataframe():
                 "type": product.type.name,
                 "metadata": product.meta_data,
                 "nutrition_types": nutrition_types,
+                "photo": first_media,
                 "created_at": product.created_at,
                 "updated_at": product.updated_at,
             }

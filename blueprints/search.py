@@ -1,10 +1,12 @@
 from flask import Blueprint, jsonify, request
+from sympy import product
 from transformers import DistilBertForSequenceClassification
 from transformers import DistilBertTokenizer
 import torch
 from deep_translator import GoogleTranslator
 
 from database.model.product import Product
+from database.model.product_media import ProductMedia
 
 
 def translate_text(text, target_language="en"):
@@ -38,6 +40,12 @@ def search():
         jsonify({"query": query, "text": text, "result": result, "products": products}),
         200,
     )
+
+
+@bp.route("/test/<int:product_id>")
+def testing(product_id):
+    media = ProductMedia.query.filter(ProductMedia.product_id == product_id).all()
+    return jsonify(media)
 
 
 def getProducts(label):

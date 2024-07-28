@@ -25,6 +25,10 @@ class Product(db.Model):
         db.DateTime, server_default=db.func.now(), onupdate=db.func.now()
     )
 
+    medias = db.relationship(
+        "ProductMedia", back_populates="product", lazy=True, overlaps="product_ref"
+    )
+
     nutrition_types = db.relationship(
         "NutritionType",
         secondary=nutrition_type_product,
@@ -35,6 +39,6 @@ class Product(db.Model):
     def __repr__(self):
         return (
             f"<Product(id={self.id}, name='{self.name}', price={self.price}, stock={self.stock}, "
-            f"description='{self.description}', type='{self.type}', metadata='{self.metadata}', "
+            f"description='{self.description}', type='{self.type}', metadata='{self.meta_data}', "
             f"created_at={self.created_at}, updated_at={self.updated_at})>"
         )
